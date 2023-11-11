@@ -1,0 +1,7 @@
+Question:
+The question is "Is it worth watching after half time?".  My goal is to gather data that would allow me to determine if it is possible to predict the final score of college football games at halftime, and with how much accuracy/statistical confidence.  Do you guys have feedback on that topic's general interest, creativity/originality, and the scope of the question?
+
+
+"I think this is a excellent question to look into, and I think it is something a lot of people would have interest in. I think it is a great, original question that would be great for an EDA and modeling question."
+
+"I think this is a really fun topic to work with. I am not familiar with football games, but I assume the data is really broad. Maybe you could consider concentrating on a specific conference or a particular season. This would make data collection more manageable and enable a more in-depth analysis.  For data collection, I am thinking to explore various sources, such as sports databases, official team websites, or even APIs if available, to gather both halftime and final score statistics accurately.  Precise and comprehensive data will be essential for drawing meaningful conclusions and predictions for this project."
