@@ -223,13 +223,74 @@ for year in range(2018,2023):
             try: 
                 mean = thetahat[teams[row['home_team']]] - thetahat[teams[row['away_team']]]
                 home_win_prob.append(1-norm.cdf(0,loc=mean,scale=sd).item())
-                expected_diff.append(mean)
+                expected_diff.append(mean).item()
             except:
                 home_win_prob.append(pd.NA)
                 expected_diff.append(pd.NA)
 df['home_win_prob'] = home_win_prob
 df['predicted_diff'] = expected_diff
 
+home_win_prob = []
+expected_diff = []
+for index,row in df.iterrows():
+    if row['year'] > 2017:break # don't predict for the 2017 season
+    home_win_prob.append(pd.NA)
+    expected_diff.append(pd.NA)
+
+for year in range(2018,2023):
+    for week in range(1,16):
+        print(year,week)
+        
+        # Create a boolean mask for the last 15 weeks before this week
+        mask = ((df['year'] == year-1) & (df['week'] >= week)) | ((df['year'] == year) & (df['week'] < week))
+
+        # Apply the mask to get the filtered DataFrame
+        filtered_df = df[mask]
+        
+        # get the teams
+        teams = pd.concat([filtered_df['home_team'], filtered_df['away_team']]).unique()
+        teams_df = pd.DataFrame({'Team': sorted(teams)})
+        teams = {team: index for index, team in enumerate(teams_df['Team'])}
+        
+        # Regression to get Theta values
+        n = len(filtered_df)
+        X = np.zeros((n,len(teams)))
+        Y = np.zeros((n,1))
+        
+
+        for index, row in filtered_df.iterrows():
+            home = row['home_team']
+            away = row['away_team']
+            # set winning team to 1 and losing team to -1
+            X[index][teams[home]] = 1
+            X[index][teams[away]] = -1
+            Y[index] = row['final_differential']
+
+        top = np.eye(len(teams)-1,len(teams)-1)
+        bottom = np.zeros((1,len(teams)-1))
+        W = np.vstack((top,bottom))
+        Xstar = np.matmul(X,W)
+
+        thetahat = np.matmul(W,np.linalg.inv(np.matmul(np.transpose(Xstar),Xstar))@np.matmul(Xstar.T,Y))
+        variance = (1/(len(filtered_df)-len(teams)-1))*np.transpose((Y-np.dot(X,thetahat)))@(Y-np.dot(X,thetahat))
+        sd = np.sqrt(variance)
+        
+        # Create a boolean mask for rows before the target year/week
+        mask = ((df['year'] == year) & (df['week'] == week))
+
+        # Apply the mask to get the filtered DataFrame
+        filtered_df2 = df[mask]
+        for index,row in filtered_df2.iterrows():
+            
+            try: 
+                mean = thetahat[teams[row['home_team']]] - thetahat[teams[row['away_team']]]
+                home_win_prob.append(1-norm.cdf(0,loc=mean,scale=sd).item())
+                expected_diff.append(mean).item()
+            except:
+                home_win_prob.append(pd.NA)
+                expected_diff.append(pd.NA)
+df['home_win_prob_last15'] = home_win_prob
+df['predicted_diff_last15'] = expected_diff
 
 # save to a csv file
 df.to_csv('cbsFootballData.csv',index=None)
