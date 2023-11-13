@@ -34,7 +34,6 @@ home_first_pos = []
 years = range(2017, 2023) # goes from 2017 through the end of 2022
 weeks = range(1,16) # goes from week 1 through the end of week 15
 
-
 #! Note - this loop takes a long time to run for the full extent of the data.  For me, it took nearly 5 hours.
 for year in years:
     for week in weeks:
@@ -65,6 +64,7 @@ for year in years:
             
             # get the scores for each quarter
             game = ([td.text.strip() for td in table.find_all('td')])
+            
             
             if len(game) == 12 and all(element != '-' for element in game): # check if all game data is there
                 # get the quarter data and do some processing on it
@@ -118,10 +118,12 @@ for year in years:
                         except:away_team_nicknames.append(pd.NA)
                         
                         # figure out which team started with the ball
-                        first_pos = pbp_soup.find_all('span',class_='TeamName')[1].text.strip()
-                        if first_pos == nicknames[1].text.strip():
-                            home_first_pos.append(1)
-                        else: home_first_pos.append(0)
+                        try: 
+                            first_pos = pbp_soup.find_all('span',class_='TeamName')[1].text.strip()
+                            if first_pos == nicknames[1].text.strip():
+                                home_first_pos.append(1)
+                            else: home_first_pos.append(0)
+                        except: home_first_pos.append(pd.NA)
                         
                     else: # handling if no play by play page was found
                         home_first_pos.append(pd.NA)
@@ -131,7 +133,8 @@ for year in years:
                     home_first_pos.append(pd.NA)
                     away_team_nicknames.append(pd.NA)
                     home_team_nicknames.append(pd.NA)
-                    
+
+
 # consolidate dataframe
 df = pd.DataFrame(data = {
     'year' : years_list,
@@ -161,6 +164,9 @@ df = pd.DataFrame(data = {
 
 # calculate score differential at halftime
 df['halftime_differential'] = df['home_team_halftime'] - df['away_team_halftime']
+
+df['q1_differential'] = df['home_team_q1'] - df['away_team_q1']
+df['q3_differential'] = df['home_team_halftime'] - df['away_team_halftime'] + df['home_team_q3'] - df['home_team_q3']
 
 # calculate score differential at end of game
 df['final_differential'] = df['home_team_final'] - df['away_team_final']
@@ -213,7 +219,7 @@ for year in range(2018,2023):
         variance = (1/(len(filtered_df)-len(teams)-1))*np.transpose((Y-np.dot(X,thetahat)))@(Y-np.dot(X,thetahat))
         sd = np.sqrt(variance)
         
-        # Create a boolean mask for rows before the target year/week
+        # Create a boolean mask for rows this week
         mask = ((df['year'] == year) & (df['week'] == week))
 
         # Apply the mask to get the filtered DataFrame
@@ -223,13 +229,15 @@ for year in range(2018,2023):
             try: 
                 mean = thetahat[teams[row['home_team']]] - thetahat[teams[row['away_team']]]
                 home_win_prob.append(1-norm.cdf(0,loc=mean,scale=sd).item())
-                expected_diff.append(mean).item()
+                expected_diff.append(mean.item())
+                
             except:
                 home_win_prob.append(pd.NA)
                 expected_diff.append(pd.NA)
 df['home_win_prob'] = home_win_prob
 df['predicted_diff'] = expected_diff
 
+# recalculating win probability based on only the last 15 weeks of football
 home_win_prob = []
 expected_diff = []
 for index,row in df.iterrows():
@@ -257,14 +265,15 @@ for year in range(2018,2023):
         X = np.zeros((n,len(teams)))
         Y = np.zeros((n,1))
         
-
-        for index, row in filtered_df.iterrows():
+        i = 0
+        for index,row in filtered_df.iterrows():
             home = row['home_team']
             away = row['away_team']
             # set winning team to 1 and losing team to -1
-            X[index][teams[home]] = 1
-            X[index][teams[away]] = -1
-            Y[index] = row['final_differential']
+            X[i][teams[home]] = 1
+            X[i][teams[away]] = -1
+            Y[i] = row['final_differential']
+            i += 1
 
         top = np.eye(len(teams)-1,len(teams)-1)
         bottom = np.zeros((1,len(teams)-1))
@@ -285,12 +294,11 @@ for year in range(2018,2023):
             try: 
                 mean = thetahat[teams[row['home_team']]] - thetahat[teams[row['away_team']]]
                 home_win_prob.append(1-norm.cdf(0,loc=mean,scale=sd).item())
-                expected_diff.append(mean).item()
+                expected_diff.append(mean.item())
             except:
                 home_win_prob.append(pd.NA)
                 expected_diff.append(pd.NA)
 df['home_win_prob_last15'] = home_win_prob
 df['predicted_diff_last15'] = expected_diff
 
-# save to a csv file
-df.to_csv('cbsFootballData.csv',index=None)
+df.to_csv('cbsFootballData.csv')
