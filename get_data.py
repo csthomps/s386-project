@@ -284,17 +284,23 @@ for year in range(2018,2023):
         variance = (1/(len(filtered_df)-len(teams)-1))*np.transpose((Y-np.dot(X,thetahat)))@(Y-np.dot(X,thetahat))
         sd = np.sqrt(variance)
         
-        # Create a boolean mask for rows before the target year/week
+        # Create a boolean mask for rows this year/week
         mask = ((df['year'] == year) & (df['week'] == week))
-
         # Apply the mask to get the filtered DataFrame
         filtered_df2 = df[mask]
+        
+        # get the number of times each team has played in the last 15 weeks
+        team_counts = pd.concat([filtered_df['home_team'], filtered_df['away_team']]).value_counts()
         for index,row in filtered_df2.iterrows():
-            
             try: 
-                mean = thetahat[teams[row['home_team']]] - thetahat[teams[row['away_team']]]
-                home_win_prob.append(1-norm.cdf(0,loc=mean,scale=sd).item())
-                expected_diff.append(mean.item())
+                #make sure both teams have played at least 10 games in the last 15 (trying to avoid problems with not enough samples)
+                if team_counts[row['home_team']] > 10 and team_counts[row['away_team']] > 10:
+                    mean = thetahat[teams[row['home_team']]] - thetahat[teams[row['away_team']]]
+                    home_win_prob.append(1-norm.cdf(0,loc=mean,scale=sd).item())
+                    expected_diff.append(mean.item())
+                else:
+                    home_win_prob.append(pd.NA)
+                    expected_diff.append(pd.NA)
             except:
                 home_win_prob.append(pd.NA)
                 expected_diff.append(pd.NA)
