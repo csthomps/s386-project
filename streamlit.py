@@ -61,3 +61,12 @@ thetas = thetas.sort_values('strength',ascending=False)
 all_prev = px.bar(thetas.head(25),x='strength',y='team',title='Top 25 Teams Based On All Previous Data',width=800, height=600)
 all_prev.update_layout(yaxis=dict(autorange="reversed"))
 st.plotly_chart(all_prev)
+
+
+col1, col2 = st.columns(2)
+
+col1.header("Original")
+col1.plotly_chart(all_prev)
+
+col2.header("Grayscale")
+col2.plotly_chart(all_prev)
