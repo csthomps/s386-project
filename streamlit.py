@@ -23,8 +23,8 @@ st.plotly_chart(hist)
 
 
 
-selected_year = st.selectbox('Select a year',df['year'].unique())
-selected_week = st.selectbox('Select a week',df['week'].unique())
+selected_year = st.selectbox('Select a year',df['year'].unique(),2022)
+selected_week = st.selectbox('Select a week',df['week'].unique(),15)
 
 mask = (df['year'] < selected_year) | ((df['year'] == selected_year) & (df['week'] < selected_week))
 filtered_df = df[mask]
