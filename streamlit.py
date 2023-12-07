@@ -7,7 +7,7 @@ st.title('Predicting Football Scores at Halftime')
 st.subheader('Preliminary Data Visualization')
 
 df = pd.read_csv('cbsFootballData.csv')
-
+st.text(f'{len(df)}')
 # selected_name = st.text_input('Enter a name','John') # John is default
 # name_df = df[df['name'] == selected_name]
 # if name_df.empty:
