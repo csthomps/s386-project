@@ -8,13 +8,8 @@ st.subheader('Preliminary Data Visualization')
 
 df = pd.read_csv('cbsFootballData.csv')
 
-# selected_name = st.text_input('Enter a name','John') # John is default
-# name_df = df[df['name'] == selected_name]
-# if name_df.empty:
-#     st.write('No data for this name')
-# else:
-#     fig = px.line(name_df,x='year',y='n',color='sex')
-#     st.plotly_chart(fig)
+st.write("This is an interactive dashboard to explore the charts I wrote about in this blog post: https://csthomps.github.io/s386-blog/2023/12/06/386-project-part-2.html")
+st.write("I will breifly describe the purpose and data behind each of the visualizations, but look at the blog post for more detail.")
 nbins = int(df['final_differential'].max() - df['final_differential'].min() + 1)
 hist = px.histogram(df,'final_differential',nbins=nbins)
 st.plotly_chart(hist)
@@ -29,7 +24,7 @@ scatter = px.scatter(df,x='halftime_differential',y='final_differential',
 st.plotly_chart(scatter,use_container_width=True)
 
 st.write("Here is a quick explanation of what the variables are:")
-st.write("- homewins-awaywins: the number of teams the home game has won so far in the season - the away team's win count")
+st.write("- homewins-awaywins: the number of games the home team has won so far in the season - the away team's win count")
 st.write("- home_win_prob and predicted_diff: these are calculated using through Glickman and Stern's method (which I talk about in my blog posts) and all historical data")
 st.write("- home_win_prob_last15 and predicted_diff_last15: these are calculated using only the last 15 weeks of data")
 st.write("- q1_differential, halftime_differential, q3_differential, final_differential: the score differential (home score - away score) at each point in the game")
