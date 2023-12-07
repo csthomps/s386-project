@@ -17,7 +17,7 @@ df = pd.read_csv('cbsFootballData.csv')
 #     st.plotly_chart(fig)
 nbins = df['final_differential'].max() - df['final_differential'].min() + 1
 st.text(f'{nbins}')
-fig = px.histogram(df,'final_differential',nbins = nbins)
+fig = px.histogram(df,'final_differential')
 st.plotly_chart(fig)
     
 
