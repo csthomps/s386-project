@@ -37,8 +37,15 @@ variables = st.multiselect(
                       'q3_differential','final_differential'])
 
 heatmap = px.imshow(df[variables].corr().round(2),
-          text_auto=True)
+          text_auto=True,
+          title='Correlation Heatmap')
 st.plotly_chart(heatmap,use_container_width=True)
+
+num_vars = len(variables)
+scat_mat = px.scatter_matrix(df[variables],
+                             height = 200*num_vars, width = 200*num_vars,
+                             title = 'Scatterplot Matrix')
+st.plotly_chart(scat_mat)
 
 selected_year = st.selectbox('Select a year',df['year'].unique(),len(df['year'].unique())-1)
 selected_week = st.selectbox('Select a week',df['week'].unique(),len(df['week'].unique())-1)
