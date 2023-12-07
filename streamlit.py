@@ -32,9 +32,7 @@ variables = st.multiselect(
     ['homewins-awaywins','home_win_prob','predicted_diff','home_win_prob_last15',
                       'predicted_diff_last15','q1_differential','halftime_differential',
                       'q3_differential','final_differential'],
-    ['homewins-awaywins','home_win_prob','predicted_diff','home_win_prob_last15',
-                      'predicted_diff_last15','q1_differential','halftime_differential',
-                      'q3_differential','final_differential'])
+    ['home_win_prob_last15','predicted_diff_last15','halftime_differential','final_differential'])
 
 heatmap = px.imshow(df[variables].corr().round(2),
           text_auto=True,
