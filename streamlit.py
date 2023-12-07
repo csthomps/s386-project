@@ -106,9 +106,9 @@ if selected_year != 2017 and selected_week != 1:
     col1, col2 = st.columns(2)
 
     col1.header("Top 25 Teams Based On All Previous Data")
-    col1.plotly_chart(all_prev)
+    col1.plotly_chart(all_prev,use_container_width=True)
 
     col2.header("Top 25 Teams Based On last 15 weeks")
-    col2.plotly_chart(last_15)
+    col2.plotly_chart(last_15,use_container_width=True)
 else:
     st.write("There is no data before that!")
