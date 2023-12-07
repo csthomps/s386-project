@@ -20,6 +20,7 @@ hist = px.histogram(df,'final_differential',nbins=nbins)
 st.plotly_chart(hist)
     
 
+
 scatter = px.scatter(df,x='halftime_differential',y='final_differential',
            opacity=.2,hover_data=["home_team",
                                   "away_team",
@@ -27,6 +28,11 @@ scatter = px.scatter(df,x='halftime_differential',y='final_differential',
                                   'final_differential'])
 st.plotly_chart(scatter,use_container_width=True)
 
+st.text("Here is a quick explanation of what the variables are:\
+        - homewins-awaywins: the number of teams the home game has won so far in the season - the away team's win count \
+        - home_win_prob and predicted_diff: these are calculated using through Glickman and Stern's method (which I talk about in my blog posts) and all historical data \
+        - home_win_prob_last15 and predicted_diff_last15: these are calculated using only the last 15 weeks of data \
+        - q1_differential, halftime_differential, q3_differential, final_differential: the score differential (home score - away score) at each point in the game")
 variables = st.multiselect(
     'What variables do you want to include?',
     ['homewins-awaywins','home_win_prob','predicted_diff','home_win_prob_last15',
