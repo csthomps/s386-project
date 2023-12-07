@@ -63,6 +63,8 @@ if selected_year != 2017 and selected_week != 1:
     all_prev = px.bar(thetas.head(25),x='strength',y='team',title='Top 25 Teams Based On All Previous Data',height=600)
     all_prev.update_layout(yaxis=dict(autorange="reversed"))
 
+
+
     ## Last 15
     mask = ((df['year'] == selected_year-1) & (df['week'] >= selected_week)) | ((df['year'] == selected_year) & (df['week'] < selected_week))
     filtered_df = df[mask]
@@ -78,13 +80,15 @@ if selected_year != 2017 and selected_week != 1:
     Y = np.zeros((n,1))
 
 
+    i = 0
     for index, row in filtered_df.iterrows():
         home = row['home_team']
         away = row['away_team']
         # set winning team to 1 and losing team to -1
-        X[index][teams[home]] = 1
-        X[index][teams[away]] = -1
-        Y[index] = row['final_differential']
+        X[i][teams[home]] = 1
+        X[i][teams[away]] = -1
+        Y[i] = row['final_differential']
+        i += 1
 
     top = np.eye(len(teams)-1,len(teams)-1)
     bottom = np.zeros((1,len(teams)-1))
