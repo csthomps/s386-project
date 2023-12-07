@@ -26,7 +26,7 @@ st.plotly_chart(hist)
 selected_year = st.selectbox('Select a year',df['year'].unique(),len(df['year'].unique())-1)
 selected_week = st.selectbox('Select a week',df['week'].unique(),len(df['week'].unique())-1)
 
-if selected_year != 2017 and selected_week != 1:
+if selected_year != 2017 or selected_week != 1:
     ## All Previous
     mask = (df['year'] < selected_year) | ((df['year'] == selected_year) & (df['week'] < selected_week))
     filtered_df = df[mask]
@@ -60,7 +60,7 @@ if selected_year != 2017 and selected_week != 1:
     thetas = pd.DataFrame({'team':list(teams.keys()),'strength':list(thetahat)})
     thetas['strength'] = thetas['strength'].apply(lambda x:x.item())
     thetas = thetas.sort_values('strength',ascending=False)
-    all_prev = px.bar(thetas.head(25),x='strength',y='team',title='Top 25 Teams Based On All Previous Data',height=600)
+    all_prev = px.bar(thetas.head(25),x='strength',y='team',height=600)
     all_prev.update_layout(yaxis=dict(autorange="reversed"))
 
 
