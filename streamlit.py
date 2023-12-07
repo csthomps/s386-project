@@ -58,5 +58,5 @@ thetahat = np.matmul(W,np.linalg.inv(np.matmul(np.transpose(Xstar),Xstar))@np.ma
 thetas = pd.DataFrame({'team':list(teams.keys()),'strength':list(thetahat)})
 thetas['strength'] = thetas['strength'].apply(lambda x:x.item())
 thetas = thetas.sort_values('strength',ascending=False)
-all_prev = px.bar(thetas.head(25),x='strength',y='team',title='Top 25 Teams Based On All Previous Data')
+all_prev = px.bar(thetas.head(25),x='strength',y='team',title='Top 25 Teams Based On All Previous Data',reversed=True)
 st.plotly_chart(all_prev)
