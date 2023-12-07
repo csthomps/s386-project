@@ -26,47 +26,85 @@ st.plotly_chart(hist)
 selected_year = st.selectbox('Select a year',df['year'].unique(),len(df['year'].unique())-1)
 selected_week = st.selectbox('Select a week',df['week'].unique(),len(df['week'].unique())-1)
 
-mask = (df['year'] < selected_year) | ((df['year'] == selected_year) & (df['week'] < selected_week))
-filtered_df = df[mask]
+if selected_year != 2017 and selected_week != 1:
+    ## All Previous
+    mask = (df['year'] < selected_year) | ((df['year'] == selected_year) & (df['week'] < selected_week))
+    filtered_df = df[mask]
 
-# get the teams
-teams = pd.concat([filtered_df['home_team'], filtered_df['away_team']]).unique()
-teams_df = pd.DataFrame({'Team': sorted(teams)})
-teams = {team: index for index, team in enumerate(teams_df['Team'])}
+    # get the teams
+    teams = pd.concat([filtered_df['home_team'], filtered_df['away_team']]).unique()
+    teams_df = pd.DataFrame({'Team': sorted(teams)})
+    teams = {team: index for index, team in enumerate(teams_df['Team'])}
 
-# Regression to get Theta values
-n = len(filtered_df)
-X = np.zeros((n,len(teams)))
-Y = np.zeros((n,1))
-
-
-for index, row in filtered_df.iterrows():
-    home = row['home_team']
-    away = row['away_team']
-    # set winning team to 1 and losing team to -1
-    X[index][teams[home]] = 1
-    X[index][teams[away]] = -1
-    Y[index] = row['final_differential']
-
-top = np.eye(len(teams)-1,len(teams)-1)
-bottom = np.zeros((1,len(teams)-1))
-W = np.vstack((top,bottom))
-Xstar = np.matmul(X,W)
-
-thetahat = np.matmul(W,np.linalg.inv(np.matmul(np.transpose(Xstar),Xstar))@np.matmul(Xstar.T,Y))
-
-thetas = pd.DataFrame({'team':list(teams.keys()),'strength':list(thetahat)})
-thetas['strength'] = thetas['strength'].apply(lambda x:x.item())
-thetas = thetas.sort_values('strength',ascending=False)
-all_prev = px.bar(thetas.head(25),x='strength',y='team',title='Top 25 Teams Based On All Previous Data',width=800, height=600)
-all_prev.update_layout(yaxis=dict(autorange="reversed"))
-st.plotly_chart(all_prev)
+    # Regression to get Theta values
+    n = len(filtered_df)
+    X = np.zeros((n,len(teams)))
+    Y = np.zeros((n,1))
 
 
-col1, col2 = st.columns(2)
+    for index, row in filtered_df.iterrows():
+        home = row['home_team']
+        away = row['away_team']
+        # set winning team to 1 and losing team to -1
+        X[index][teams[home]] = 1
+        X[index][teams[away]] = -1
+        Y[index] = row['final_differential']
 
-col1.header("Original")
-col1.plotly_chart(all_prev)
+    top = np.eye(len(teams)-1,len(teams)-1)
+    bottom = np.zeros((1,len(teams)-1))
+    W = np.vstack((top,bottom))
+    Xstar = np.matmul(X,W)
 
-col2.header("Grayscale")
-col2.plotly_chart(all_prev)
+    thetahat = np.matmul(W,np.linalg.inv(np.matmul(np.transpose(Xstar),Xstar))@np.matmul(Xstar.T,Y))
+
+    thetas = pd.DataFrame({'team':list(teams.keys()),'strength':list(thetahat)})
+    thetas['strength'] = thetas['strength'].apply(lambda x:x.item())
+    thetas = thetas.sort_values('strength',ascending=False)
+    all_prev = px.bar(thetas.head(25),x='strength',y='team',title='Top 25 Teams Based On All Previous Data',height=600)
+    all_prev.update_layout(yaxis=dict(autorange="reversed"))
+
+    ## Last 15
+    mask = ((df['year'] == selected_year-1) & (df['week'] >= selected_week)) | ((df['year'] == selected_year) & (df['week'] < selected_week))
+    filtered_df = df[mask]
+
+    # get the teams
+    teams = pd.concat([filtered_df['home_team'], filtered_df['away_team']]).unique()
+    teams_df = pd.DataFrame({'Team': sorted(teams)})
+    teams = {team: index for index, team in enumerate(teams_df['Team'])}
+
+    # Regression to get Theta values
+    n = len(filtered_df)
+    X = np.zeros((n,len(teams)))
+    Y = np.zeros((n,1))
+
+
+    for index, row in filtered_df.iterrows():
+        home = row['home_team']
+        away = row['away_team']
+        # set winning team to 1 and losing team to -1
+        X[index][teams[home]] = 1
+        X[index][teams[away]] = -1
+        Y[index] = row['final_differential']
+
+    top = np.eye(len(teams)-1,len(teams)-1)
+    bottom = np.zeros((1,len(teams)-1))
+    W = np.vstack((top,bottom))
+    Xstar = np.matmul(X,W)
+
+    thetahat = np.matmul(W,np.linalg.inv(np.matmul(np.transpose(Xstar),Xstar))@np.matmul(Xstar.T,Y))
+
+    thetas = pd.DataFrame({'team':list(teams.keys()),'strength':list(thetahat)})
+    thetas['strength'] = thetas['strength'].apply(lambda x:x.item())
+    thetas = thetas.sort_values('strength',ascending=False)
+    last_15 = px.bar(thetas.head(25),x='strength',y='team',height=600)
+    last_15.update_layout(yaxis=dict(autorange="reversed"))
+
+    col1, col2 = st.columns(2)
+
+    col1.header("Top 25 Teams Based On All Previous Data")
+    col1.plotly_chart(all_prev)
+
+    col2.header("Top 25 Teams Based On last 15 weeks")
+    col2.plotly_chart(last_15)
+else:
+    st.write("There is no data before that!")
