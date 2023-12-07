@@ -16,11 +16,13 @@ df = pd.read_csv('cbsFootballData.csv')
 #     fig = px.line(name_df,x='year',y='n',color='sex')
 #     st.plotly_chart(fig)
 
-fig = px.histogram(df,'final_differential',nbins = (df['final_differential'].max() - df['final_differential'].min()))
+fig = px.histogram(df,'final_differential',nbins = (df['final_differential'].max() - df['final_differential'].min()+1))
 st.plotly_chart(fig)
     
 
-# selected_year = st.select_slider('Select a year',df['year'].unique())
+selected_year = st.selectbox('Select a year',df['year'].unique())
+selected_week = st.selectbox('Select a week',df['week'].unique())
+
 # year_df = df[df['year'] == selected_year]
 # girlnames = year_df[year_df['sex'] == 'F'].sort_values(by='n',ascending=False).head(5)['name'].reset_index(drop=True)
 # boynames = year_df[year_df['sex'] == 'M'].sort_values(by='n',ascending=False).head(5)['name'].reset_index(drop=True)
