@@ -17,7 +17,7 @@ df = pd.read_csv('cbsFootballData.csv')
 #     st.plotly_chart(fig)
 
 fig = px.histogram(df,'final_differential')
-st.plotly.chart(fig)
+st.plotly_chart(fig)
     
 
 # selected_year = st.select_slider('Select a year',df['year'].unique())
