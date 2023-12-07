@@ -26,7 +26,11 @@ st.plotly_chart(hist)
 selected_year = st.selectbox('Select a year',df['year'].unique(),len(df['year'].unique())-1)
 selected_week = st.selectbox('Select a week',df['week'].unique(),len(df['week'].unique())-1)
 
-if selected_year != 2017 or selected_week != 1:
+if selected_year == 2017 and selected_week == 1:
+    st.write("There is no data before that!")
+elif selected_year == 2017 and selected_week < 5:
+    st.write("There isn't enough data before that to do regression.")
+else:
     ## All Previous
     mask = (df['year'] < selected_year) | ((df['year'] == selected_year) & (df['week'] < selected_week))
     filtered_df = df[mask]
@@ -110,5 +114,3 @@ if selected_year != 2017 or selected_week != 1:
 
     col2.header("Top 25 Teams Based On last 15 weeks")
     col2.plotly_chart(last_15,use_container_width=True)
-else:
-    st.write("There is no data before that!")
