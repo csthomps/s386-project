@@ -166,7 +166,7 @@ df = pd.DataFrame(data = {
 df['halftime_differential'] = df['home_team_halftime'] - df['away_team_halftime']
 
 df['q1_differential'] = df['home_team_q1'] - df['away_team_q1']
-df['q3_differential'] = df['home_team_halftime'] - df['away_team_halftime'] + df['home_team_q3'] - df['home_team_q3']
+df['q3_differential'] = df['halftime_differential'] + df['home_team_q3'] - df['away_team_q3']
 
 # calculate score differential at end of game
 df['final_differential'] = df['home_team_final'] - df['away_team_final']
@@ -307,4 +307,4 @@ for year in range(2018,2023):
 df['home_win_prob_last15'] = home_win_prob
 df['predicted_diff_last15'] = expected_diff
 
-df.to_csv('cbsFootballData.csv')
+df.to_csv('cbsFootballData.csv',index=None)
