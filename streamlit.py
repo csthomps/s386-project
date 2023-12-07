@@ -21,7 +21,25 @@ hist = px.histogram(df,'final_differential',nbins=nbins)
 st.plotly_chart(hist)
     
 
+scatter = px.scatter(df,x='halftime_differential',y='final_differential',
+           opacity=.2,hover_data=["home_team",
+                                  "away_team",
+                                  'halftime_differential',
+                                  'final_differential'])
+st.plotly_chart(scatter,use_container_width=True)
 
+variables = st.multiselect(
+    'What variables do you want to include?',
+    ['homewins-awaywins','home_win_prob','predicted_diff','home_win_prob_last15',
+                      'predicted_diff_last15','q1_differential','halftime_differential',
+                      'q3_differential','final_differential'],
+    ['homewins-awaywins','home_win_prob','predicted_diff','home_win_prob_last15',
+                      'predicted_diff_last15','q1_differential','halftime_differential',
+                      'q3_differential','final_differential'])
+
+heatmap = px.imshow(df[variables].corr().round(2),
+          text_auto=True)
+st.plotly_chart(heatmap,use_container_width=True)
 
 selected_year = st.selectbox('Select a year',df['year'].unique(),len(df['year'].unique())-1)
 selected_week = st.selectbox('Select a week',df['week'].unique(),len(df['week'].unique())-1)
