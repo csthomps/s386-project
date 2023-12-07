@@ -7,7 +7,7 @@ st.title('Predicting Football Scores at Halftime')
 st.subheader('Preliminary Data Visualization')
 
 df = pd.read_csv('cbsFootballData.csv')
-st.text(f'{len(df)}')
+
 # selected_name = st.text_input('Enter a name','John') # John is default
 # name_df = df[df['name'] == selected_name]
 # if name_df.empty:
@@ -15,8 +15,9 @@ st.text(f'{len(df)}')
 # else:
 #     fig = px.line(name_df,x='year',y='n',color='sex')
 #     st.plotly_chart(fig)
-
-fig = px.histogram(df,'final_differential',nbins = (df['final_differential'].max() - df['final_differential'].min()+1))
+nbins = df['final_differential'].max() - df['final_differential'].min() + 1
+st.text(f'{nbins}')
+fig = px.histogram(df,'final_differential',nbins = nbins)
 st.plotly_chart(fig)
     
 
