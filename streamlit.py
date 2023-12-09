@@ -190,4 +190,4 @@ col1.header("Estimated Top 25 Teams in 2022")
 col1.plotly_chart(season_2022,use_container_width=True)
 
 col2.header("AP Top 25 Teams in 2022")
-col2.image('s386-project\\figures\\Screenshot 2023-12-08 231850.png')
+col2.image('figures\\Screenshot 2023-12-08 231850.png')
