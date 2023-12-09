@@ -192,7 +192,7 @@ col1.plotly_chart(season_2022,use_container_width=True)
 col2.header("AP Top 25 Teams in 2022")
 col2.image('https://github.com/csthomps/s386-project/blob/main/figures/Screenshot%202023-12-08%20231850.png?raw=true')
 
-st.write("These visualizations are just a short summary of the work I have done for this project.  Here are some links if you want more details:")
+st.write("These visualizations are just a short summary of the work I have done for this project.  Here are some links if you want more details or background.")
 st.write("- My first blog post: https://csthomps.github.io/s386-blog/2023/11/05/386-project-part-1.html")
 st.write("- My second blog post: https://csthomps.github.io/s386-blog/2023/12/06/386-project-part-2.html")
 st.write("- My github repository, including all code, figures, and data: https://github.com/csthomps/s386-project")
