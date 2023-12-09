@@ -9,7 +9,7 @@ st.subheader('Preliminary Data Visualization')
 df = pd.read_csv('cbsFootballData.csv')
 
 st.write("This is an interactive dashboard to explore the charts I wrote about in this blog post: https://csthomps.github.io/s386-blog/2023/12/06/386-project-part-2.html")
-st.write("I will breifly describe the purpose and data behind each of the visualizations, but look at the blog post for more detail.")
+st.write("I will briefly describe the purpose and data behind each of the visualizations, but look at the blog post for more detail.")
 
 st.write("This chart shows the distribution of the final differentials across all the games in my dataset.  Differentials are calculated as the home team's score minus the away team's score.  As you might expect, there are large spikes at the threes and sevens.  However, there definitely seems to be a majority of the observations on the positive side, which indicates that the home team wins more often.")
 nbins = int(df['final_differential'].max() - df['final_differential'].min() + 1)
