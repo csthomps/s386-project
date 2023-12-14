@@ -1,7 +1,32 @@
 Question:
 The question is "Is it worth watching after half time?".  My goal is to gather data that would allow me to determine if it is possible to predict the final score of college football games at halftime, and with how much accuracy/statistical confidence.  Do you guys have feedback on that topic's general interest, creativity/originality, and the scope of the question?
 
-
 "I think this is a excellent question to look into, and I think it is something a lot of people would have interest in. I think it is a great, original question that would be great for an EDA and modeling question."
 
 "I think this is a really fun topic to work with. I am not familiar with football games, but I assume the data is really broad. Maybe you could consider concentrating on a specific conference or a particular season. This would make data collection more manageable and enable a more in-depth analysis.  For data collection, I am thinking to explore various sources, such as sports databases, official team websites, or even APIs if available, to gather both halftime and final score statistics accurately.  Precise and comprehensive data will be essential for drawing meaningful conclusions and predictions for this project."
+
+Part 2 blog post SHA:51e862c208d717e71234af97ce681ee28ee19bca
+https://github.com/csthomps/s386-blog/tree/51e862c208d717e71234af97ce681ee28ee19bca
+Feedback:
+Trevor: I think the blog post is pretty good overall, the only thing I would really say would be try and break up the Data paragraph into more manageable chunks, since all of it in one giant block makes it a bit hard to read. But I think all your content is good, and has good clarity and information there.
+ - I broke up the Data paragraph as he recommended, and then shared the new version out for more feedback (82fe279c2c80a4c81f25f07aa4d95bc3340d6264)
+Cici:Your explanation about sourcing the data was quite clear and really helped me grasp the context of the issue. I'm also impressed that you did the calculations on your own – that's pretty awesome. If possible, I think it would be interesting to see a brief overview of your calculation methods in this paper. Also, maybe including a picture of a BYU playing game could add a nice visual touch to this blog.
+ - I decided not to give an overview about my calculation methods in the blog, even though she suggested it.  I dedided it didn't fit with the purpose of the blog and would be overly complicated.
+
+
+
+Part 3 blog post SHA:2c9ce18bb41e22feb8638e427e15351bad90c68c
+feedback:
+Cici: Your blog is awesome! The graphs are great and you have explain the graph and give out your opinions. My only suggestion will be for your conclusion part, you mentioned about what you learned from this experience. Maybe also add some thoughts on how we can use this analysis for, like help coach to improve strategies or some how
+ - I didn't put what she suggested in my conclusion, as it doesn't suit the purpose of the project.  However, I did rewrite my conclusion a bit to make it more clear.
+Trevor: I think this blog post is very well written and put together. It has a good flow of information that is easy to follow, and each visualization is followed by a good description of key takeaways, which I liked. The only thing I would maybe look at improving is the bullet list at the end. There are a few parts that could maybe use a little more explaining, like the homewins-awaywins bullet, but that might just be me.
+ - I rewrote what I had said about homewins-awaywins to make it more clear.
+
+
+Dashboard link: https://csthomps-s386-project.streamlit.app/
+feedback:
+Cici: This is awesome dashboard. I think it's really fun to have some interaction with the data. It worked really well and you also provide your blog reference.  TBH, I can't think of anything you should change right now haha
+ - She didn't have any suggestions to change
+Trevor: I really like the dashboard, and think it is well done. It has some good visualizations and I like the interactive filters you added in on the last few graphs, and the descriptions of what each graph was showing and why you included it. 
+ - He didn't have any suggestions to change
+
