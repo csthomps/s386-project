@@ -12,8 +12,8 @@ Trevor: I think the blog post is pretty good overall, the only thing I would rea
  - I broke up the Data paragraph as he recommended, and then shared the new version out for more feedback (82fe279c2c80a4c81f25f07aa4d95bc3340d6264)
 Cici:Your explanation about sourcing the data was quite clear and really helped me grasp the context of the issue. I'm also impressed that you did the calculations on your own – that's pretty awesome. If possible, I think it would be interesting to see a brief overview of your calculation methods in this paper. Also, maybe including a picture of a BYU playing game could add a nice visual touch to this blog.
  - I decided not to give an overview about my calculation methods in the blog, even though she suggested it.  I dedided it didn't fit with the purpose of the blog and would be overly complicated.
-
-
+My Mom: it seems a little unclear after you found Glickman and Stern's method what exactly you added to it or I'd you scrapped your idea and just used their method for current games.
+ - I added a couple sentences to that part of the blog to make it more clear
 
 Part 3 blog post SHA:2c9ce18bb41e22feb8638e427e15351bad90c68c
 feedback:
@@ -21,6 +21,8 @@ Cici: Your blog is awesome! The graphs are great and you have explain the graph 
  - I didn't put what she suggested in my conclusion, as it doesn't suit the purpose of the project.  However, I did rewrite my conclusion a bit to make it more clear.
 Trevor: I think this blog post is very well written and put together. It has a good flow of information that is easy to follow, and each visualization is followed by a good description of key takeaways, which I liked. The only thing I would maybe look at improving is the bullet list at the end. There are a few parts that could maybe use a little more explaining, like the homewins-awaywins bullet, but that might just be me.
  - I rewrote what I had said about homewins-awaywins to make it more clear.
+My Mom: you use a lot of stat lingo that isn't super clear to me. Not sure what I'm looking at in the last 2 graphs. To make it more clear, you could circle and label what exactly you decide to talk about following the last 2 graphs.
+ - I tried to go through the blog and make it a little less technical, but I didn't end up changing much.  My audience is a more technical person, so it's hard to follow that advice
 
 
 Dashboard link: https://csthomps-s386-project.streamlit.app/
