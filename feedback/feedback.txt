@@ -31,4 +31,5 @@ Cici: This is awesome dashboard. I think it's really fun to have some interactio
  - She didn't have any suggestions to change
 Trevor: I really like the dashboard, and think it is well done. It has some good visualizations and I like the interactive filters you added in on the last few graphs, and the descriptions of what each graph was showing and why you included it. 
  - He didn't have any suggestions to change
-
+My Mom:I can open the dashboard.  It's definitely not phone friendly.  If you accidentally click on a graph, it will zoom in and I can't figure out how to get out of it. It may work better on a computer.  It might be good to explain what you will see or some examples of the results given choosing one or more variables. The Heatmap and Scatterplots are the most confusing.
+ - Not much I can do about poor phone viewing.  I chose not to change it, since the audience for this project is meant to be people in a stats class.
